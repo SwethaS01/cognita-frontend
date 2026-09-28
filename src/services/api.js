@@ -1,10 +1,10 @@
 import axios from 'axios';
 
-// Dev: backend runs on :5000. Production: the backend serves the frontend, so use same-origin /api.
+// Dev: backend runs on Render. Production: the backend serves the frontend, so use same-origin /api.
 export const API_URL =
-  import.meta.env.VITE_API_URL || (import.meta.env.DEV ? 'http://localhost:5000/api' : '/api');
+  import.meta.env.VITE_API_URL || 'https://cognita-backend.onrender.com/api';
 export const SOCKET_URL =
-  import.meta.env.VITE_SOCKET_URL || (import.meta.env.DEV ? 'http://localhost:5000' : window.location.origin);
+  import.meta.env.VITE_SOCKET_URL || 'https://cognita-backend.onrender.com';
 
 const api = axios.create({ baseURL: API_URL });
 api.interceptors.request.use((c) => {
