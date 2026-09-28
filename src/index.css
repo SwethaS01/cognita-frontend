@@ -6570,3 +6570,443 @@
 @media(max-width:520px){.adminStatGrid{grid-template-columns:1fr 1fr}.adminHero h1{font-size:25px}.adminPanel{padding:17px}.adminStatCard{padding:14px}.adminToolbar{align-items:stretch}.adminToolbar select{flex:1}.adminSearch{min-width:100%}}
 
 .adminError{display:flex;align-items:center;gap:10px;padding:13px 15px;margin-bottom:18px;border:1px solid #fecaca;background:#fff7f7;color:#b91c1c;border-radius:12px;font-size:13px}.adminError span{flex:1}.adminError .tableAction{color:#b91c1c;border-color:#fecaca}.empty svg{color:var(--primary);margin-bottom:8px}.empty h3{margin:0 0 5px;color:var(--dark)}.empty p{margin:0;color:var(--muted)}
+
+
+/* =========================================================
+   MENTOR MODULE
+========================================================= */
+
+.mentorModule {
+  padding: 20px;
+  max-width: 1200px;
+  margin: 0 auto;
+}
+
+.mentorModuleHeader {
+  margin-bottom: 30px;
+}
+
+.mentorModuleHeader h1 {
+  font-size: 28px;
+  font-weight: 700;
+  margin: 0 0 10px 0;
+  color: var(--dark);
+}
+
+.mentorModuleHeader p {
+  color: var(--muted);
+  margin: 0;
+}
+
+.mentorTabs {
+  display: flex;
+  gap: 10px;
+  margin-bottom: 30px;
+  flex-wrap: wrap;
+  border-bottom: 2px solid var(--border);
+  padding-bottom: 2px;
+}
+
+.mentorTab {
+  display: flex;
+  align-items: center;
+  gap: 8px;
+  padding: 12px 20px;
+  border: none;
+  background: transparent;
+  color: var(--muted);
+  font-weight: 600;
+  font-size: 14px;
+  border-radius: 10px 10px 0 0;
+  cursor: pointer;
+  transition: all 0.2s;
+}
+
+.mentorTab:hover {
+  background: var(--bg);
+  color: var(--primary);
+}
+
+.mentorTab.active {
+  background: linear-gradient(135deg, var(--primary), var(--violet));
+  color: white;
+}
+
+.mentorTabContent {
+  min-height: 400px;
+}
+
+/* Find Mentor Section */
+.findMentorSection .searchBox {
+  display: flex;
+  gap: 10px;
+  margin-bottom: 30px;
+}
+
+.findMentorSection input {
+  flex: 1;
+  padding: 14px 18px;
+  border: 2px solid var(--border);
+  border-radius: 12px;
+  font-size: 15px;
+  transition: border-color 0.2s;
+}
+
+.findMentorSection input:focus {
+  outline: none;
+  border-color: var(--primary);
+}
+
+.mentorsList h3 {
+  font-size: 20px;
+  font-weight: 700;
+  margin: 0 0 20px 0;
+  color: var(--dark);
+}
+
+.mentorResultCard {
+  display: flex;
+  justify-content: space-between;
+  align-items: center;
+  padding: 20px;
+  margin-bottom: 15px;
+  border-radius: 16px;
+  background: var(--card);
+  border: 1px solid var(--border);
+  box-shadow: var(--shadow);
+}
+
+.mentorResultInfo h4 {
+  font-size: 18px;
+  font-weight: 700;
+  margin: 0 0 5px 0;
+  color: var(--dark);
+}
+
+.mentorResultInfo p {
+  margin: 0 0 8px 0;
+  color: var(--muted);
+  font-size: 14px;
+}
+
+.mentorAbout {
+  font-style: italic;
+  color: var(--text) !important;
+}
+
+.skillTags {
+  display: flex;
+  flex-wrap: wrap;
+  gap: 8px;
+  margin-top: 10px;
+}
+
+.skillTag {
+  padding: 6px 12px;
+  background: #eef2ff;
+  color: var(--primary);
+  border-radius: 8px;
+  font-size: 13px;
+  font-weight: 600;
+}
+
+.skillTag.selected {
+  background: linear-gradient(135deg, var(--primary), var(--violet));
+  color: white;
+}
+
+.skillTag button {
+  background: none;
+  border: none;
+  cursor: pointer;
+  font: inherit;
+  color: inherit;
+  padding: 6px 12px;
+  border-radius: 8px;
+}
+
+/* Requests Section */
+.requestsSection h3 {
+  font-size: 20px;
+  font-weight: 700;
+  margin: 0 0 20px 0;
+  color: var(--dark);
+}
+
+.requestsList {
+  display: flex;
+  flex-direction: column;
+  gap: 15px;
+}
+
+.requestCard {
+  display: flex;
+  justify-content: space-between;
+  align-items: flex-start;
+  padding: 20px;
+  border-radius: 16px;
+  background: var(--card);
+  border: 1px solid var(--border);
+  box-shadow: var(--shadow);
+}
+
+.requestCard.past {
+  opacity: 0.7;
+}
+
+.requestInfo h4 {
+  font-size: 18px;
+  font-weight: 700;
+  margin: 0 0 5px 0;
+  color: var(--dark);
+}
+
+.requestInfo p {
+  margin: 0 0 8px 0;
+  color: var(--muted);
+  font-size: 14px;
+}
+
+.requestMessage {
+  font-style: italic;
+  color: var(--text) !important;
+  padding: 10px;
+  background: var(--bg);
+  border-radius: 8px;
+}
+
+.requestType {
+  font-size: 12px;
+  font-weight: 700;
+  color: var(--violet);
+  text-transform: uppercase;
+}
+
+.requestActions {
+  display: flex;
+  gap: 10px;
+}
+
+.requestActions .btn {
+  padding: 10px 16px;
+  font-size: 14px;
+}
+
+.requestActions .btn.accept {
+  background: var(--success);
+}
+
+.requestActions .btn.reject {
+  background: var(--danger);
+}
+
+.pastRequests {
+  margin-top: 30px;
+  padding-top: 20px;
+  border-top: 1px solid var(--border);
+}
+
+.pastRequests h4 {
+  font-size: 16px;
+  font-weight: 600;
+  margin: 0 0 15px 0;
+  color: var(--muted);
+}
+
+/* My Mentors/Mentees */
+.myMentorsSection h3,
+.myMenteesSection h3 {
+  font-size: 20px;
+  font-weight: 700;
+  margin: 0 0 20px 0;
+  color: var(--dark);
+}
+
+.mentorCard,
+.menteeCard {
+  display: flex;
+  justify-content: space-between;
+  align-items: center;
+  padding: 20px;
+  margin-bottom: 15px;
+  border-radius: 16px;
+  background: var(--card);
+  border: 1px solid var(--border);
+  box-shadow: var(--shadow);
+}
+
+.mentorInfo,
+.menteeInfo h4 {
+  font-size: 18px;
+  font-weight: 700;
+  margin: 0 0 5px 0;
+  color: var(--dark);
+}
+
+.mentorInfo p,
+.menteeInfo p {
+  margin: 0 0 8px 0;
+  color: var(--muted);
+  font-size: 14px;
+}
+
+.status {
+  display: inline-block;
+  padding: 4px 10px;
+  border-radius: 6px;
+  font-size: 12px;
+  font-weight: 700;
+  text-transform: uppercase;
+}
+
+.status.active {
+  background: #dcfce7;
+  color: var(--success);
+}
+
+.status.pending {
+  background: #fef3c7;
+  color: var(--warning);
+}
+
+.status.accepted {
+  background: #dcfce7;
+  color: var(--success);
+}
+
+.status.rejected {
+  background: #fee2e2;
+  color: var(--danger);
+}
+
+.status.available {
+  background: #dcfce7;
+  color: var(--success);
+}
+
+.status.busy {
+  background: #fef3c7;
+  color: var(--warning);
+}
+
+.status.not_accepting {
+  background: #fee2e2;
+  color: var(--danger);
+}
+
+/* Mentor Profile Section */
+.mentorProfileSection {
+  max-width: 800px;
+}
+
+.profileHeader {
+  display: flex;
+  justify-content: space-between;
+  align-items: center;
+  margin-bottom: 30px;
+}
+
+.profileHeader h3 {
+  font-size: 20px;
+  font-weight: 700;
+  margin: 0;
+  color: var(--dark);
+}
+
+.profileForm {
+  display: flex;
+  flex-direction: column;
+  gap: 20px;
+}
+
+.formGroup {
+  display: flex;
+  flex-direction: column;
+  gap: 10px;
+}
+
+.formGroup label {
+  font-weight: 600;
+  font-size: 14px;
+  color: var(--dark);
+}
+
+.formGroup input,
+.formGroup textarea,
+.formGroup select {
+  padding: 12px 16px;
+  border: 2px solid var(--border);
+  border-radius: 10px;
+  font-size: 15px;
+  transition: border-color 0.2s;
+}
+
+.formGroup input:focus,
+.formGroup textarea:focus,
+.formGroup select:focus {
+  outline: none;
+  border-color: var(--primary);
+}
+
+.formGroup textarea {
+  resize: vertical;
+  min-height: 100px;
+}
+
+.formActions {
+  display: flex;
+  gap: 10px;
+  margin-top: 10px;
+}
+
+.profileDisplay {
+  display: flex;
+  flex-direction: column;
+  gap: 25px;
+}
+
+.profileSection {
+  padding: 20px;
+  border-radius: 16px;
+  background: var(--card);
+  border: 1px solid var(--border);
+}
+
+.profileSection h4 {
+  font-size: 16px;
+  font-weight: 700;
+  margin: 0 0 12px 0;
+  color: var(--dark);
+}
+
+.profileSection p {
+  margin: 0;
+  color: var(--muted);
+  line-height: 1.6;
+}
+
+/* Empty State */
+.emptyState {
+  text-align: center;
+  padding: 60px 20px;
+  color: var(--muted);
+}
+
+.emptyState h3 {
+  font-size: 18px;
+  font-weight: 600;
+  margin: 0 0 10px 0;
+  color: var(--dark);
+}
+
+.emptyState p {
+  margin: 0 0 20px 0;
+}
+
+.loading {
+  text-align: center;
+  padding: 40px;
+  color: var(--muted);
+  font-size: 16px;
+}
+

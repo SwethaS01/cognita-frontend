@@ -18,7 +18,8 @@ const studentGroups=[
     ['Feed','/feed',Rss],
     ['Student Directory','/directory',Users],
     ['Connections','/connections',UserPlus],
-    ['Mentors','/mentors',GraduationCap]
+    ['Mentors','/mentors',GraduationCap],
+    ['Mentorship','/mentorship',GraduationCap]
   ]},
   {label:'Learning',items:[
     ['Ask Doubts','/doubts',HelpCircle],
