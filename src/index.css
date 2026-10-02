@@ -7010,3 +7010,408 @@
   font-size: 16px;
 }
 
+
+
+/* Filter Grid */
+.filterGrid {
+  display: grid;
+  grid-template-columns: repeat(auto-fit, minmax(200px, 1fr));
+  gap: 15px;
+  margin-bottom: 20px;
+}
+
+.filterGroup {
+  display: flex;
+  flex-direction: column;
+  gap: 8px;
+}
+
+.filterGroup label {
+  font-weight: 600;
+  font-size: 14px;
+  color: var(--dark);
+}
+
+.filterGroup input,
+.filterGroup select {
+  padding: 10px 14px;
+  border: 2px solid var(--border);
+  border-radius: 10px;
+  font-size: 14px;
+  transition: border-color 0.2s;
+}
+
+.filterGroup input:focus,
+.filterGroup select:focus {
+  outline: none;
+  border-color: var(--primary);
+}
+
+.filterActions {
+  display: flex;
+  gap: 10px;
+  margin-bottom: 30px;
+}
+
+/* Enhanced Mentor Card */
+.mentorResultCard.enhanced {
+  flex-direction: column;
+  align-items: flex-start;
+}
+
+.mentorDeptYear,
+.menteeDeptYear {
+  font-weight: 600;
+  color: var(--primary);
+  margin: 5px 0;
+}
+
+.mentorSkills,
+.menteeSkills {
+  color: var(--muted);
+  font-size: 14px;
+  margin: 5px 0;
+}
+
+.mentorGuidance,
+.menteeGuidance {
+  color: var(--text);
+  font-size: 14px;
+  margin: 5px 0;
+}
+
+.startDate {
+  color: var(--muted);
+  font-size: 13px;
+  margin: 5px 0;
+}
+
+/* Requests Header */
+.requestsHeader {
+  display: flex;
+  justify-content: space-between;
+  align-items: center;
+  margin-bottom: 20px;
+}
+
+.statusFilter {
+  padding: 8px 12px;
+  border: 2px solid var(--border);
+  border-radius: 8px;
+  font-size: 14px;
+  background: var(--card);
+}
+
+.requestCategory {
+  margin-bottom: 30px;
+}
+
+.requestCategory h4 {
+  font-size: 16px;
+  font-weight: 600;
+  margin: 0 0 15px 0;
+  color: var(--dark);
+}
+
+.pendingLabel {
+  color: var(--warning);
+  font-weight: 600;
+  font-size: 14px;
+}
+
+
+
+/* Modal */
+.modalOverlay {
+  position: fixed;
+  top: 0;
+  left: 0;
+  right: 0;
+  bottom: 0;
+  background: rgba(0, 0, 0, 0.5);
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  z-index: 1000;
+  padding: 20px;
+}
+
+.modalContent {
+  background: var(--card);
+  border-radius: 20px;
+  max-width: 700px;
+  width: 100%;
+  max-height: 90vh;
+  overflow-y: auto;
+  box-shadow: 0 20px 60px rgba(0, 0, 0, 0.3);
+}
+
+.modalHeader {
+  display: flex;
+  justify-content: space-between;
+  align-items: center;
+  padding: 25px 30px;
+  border-bottom: 1px solid var(--border);
+  position: sticky;
+  top: 0;
+  background: var(--card);
+  z-index: 1;
+}
+
+.modalHeader h2 {
+  margin: 0;
+  font-size: 24px;
+  color: var(--dark);
+}
+
+.closeModal {
+  background: none;
+  border: none;
+  font-size: 32px;
+  color: var(--muted);
+  cursor: pointer;
+  padding: 0;
+  width: 40px;
+  height: 40px;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  border-radius: 10px;
+  transition: all 0.2s;
+}
+
+.closeModal:hover {
+  background: var(--bg);
+  color: var(--dark);
+}
+
+.modalBody {
+  padding: 30px;
+}
+
+.profileBasicInfo {
+  display: grid;
+  grid-template-columns: repeat(auto-fit, minmax(150px, 1fr));
+  gap: 15px;
+  margin-bottom: 25px;
+  padding: 20px;
+  background: var(--bg);
+  border-radius: 12px;
+}
+
+.profileBasicInfo p {
+  margin: 0;
+  color: var(--muted);
+  font-size: 14px;
+}
+
+.profileBasicInfo strong {
+  color: var(--dark);
+}
+
+.projectsList,
+.certificationsList {
+  display: flex;
+  flex-direction: column;
+  gap: 15px;
+}
+
+.projectItem,
+.certItem {
+  padding: 15px;
+  background: var(--bg);
+  border-radius: 10px;
+}
+
+.projectItem strong,
+.certItem strong {
+  display: block;
+  margin-bottom: 8px;
+  color: var(--dark);
+}
+
+.projectItem p,
+.certItem p {
+  margin: 5px 0 0 0;
+  color: var(--muted);
+  font-size: 14px;
+}
+
+.skillTag.small {
+  font-size: 12px;
+  padding: 4px 8px;
+}
+
+.modalFooter {
+  display: flex;
+  gap: 10px;
+  justify-content: flex-end;
+  padding: 20px 30px;
+  border-top: 1px solid var(--border);
+  position: sticky;
+  bottom: 0;
+  background: var(--card);
+}
+
+.mentorCardActions {
+  display: flex;
+  gap: 10px;
+  margin-top: 15px;
+  width: 100%;
+}
+
+.mentorCardActions button {
+  flex: 1;
+}
+
+
+
+/* Doubts Module Enhancements */
+.categoryFilter {
+  padding: 10px 14px;
+  border: 2px solid var(--border);
+  border-radius: 10px;
+  font-size: 14px;
+  background: var(--card);
+  cursor: pointer;
+  margin-right: 10px;
+}
+
+.privateBadge {
+  background: var(--warning);
+  color: white;
+  padding: 4px 10px;
+  border-radius: 20px;
+  font-size: 12px;
+  font-weight: 600;
+}
+
+.doubtVotes {
+  display: flex;
+  gap: 8px;
+  margin: 12px 0;
+}
+
+.voteBtn {
+  background: var(--bg);
+  border: 2px solid var(--border);
+  padding: 6px 12px;
+  border-radius: 8px;
+  cursor: pointer;
+  font-size: 14px;
+  transition: all 0.2s;
+  color: var(--muted);
+}
+
+.voteBtn:hover {
+  border-color: var(--primary);
+  color: var(--primary);
+}
+
+.voteBtn.upvoted {
+  background: var(--success);
+  border-color: var(--success);
+  color: white;
+}
+
+.voteBtn.downvoted {
+  background: var(--danger);
+  border-color: var(--danger);
+  color: white;
+}
+
+/* Resources Module Enhancements */
+.resourceVotes {
+  display: flex;
+  gap: 8px;
+  align-items: center;
+}
+
+.bookmarkBtn {
+  background: none;
+  border: none;
+  cursor: pointer;
+  font-size: 20px;
+  color: var(--muted);
+  transition: color 0.2s;
+}
+
+.bookmarkBtn:hover {
+  color: var(--warning);
+}
+
+.bookmarkBtn.bookmarked {
+  color: var(--warning);
+}
+
+
+.filterToggle {
+  padding: 10px 16px;
+  border: 2px solid var(--border);
+  border-radius: 10px;
+  background: var(--card);
+  cursor: pointer;
+  font-size: 14px;
+  transition: all 0.2s;
+}
+
+.filterToggle:hover {
+  border-color: var(--primary);
+}
+
+.filterToggle.active {
+  background: var(--warning);
+  border-color: var(--warning);
+  color: white;
+}
+
+.resourceActions {
+  display: flex;
+  align-items: center;
+  gap: 12px;
+}
+
+
+.checkboxLabel {
+  display: flex;
+  align-items: center;
+  gap: 10px;
+  cursor: pointer;
+  padding: 12px;
+  background: var(--bg);
+  border-radius: 10px;
+  border: 2px solid var(--border);
+}
+
+.checkboxLabel input[type='checkbox'] {
+  width: 20px;
+  height: 20px;
+  cursor: pointer;
+}
+
+.checkboxLabel span {
+  font-size: 14px;
+  color: var(--muted);
+}
+
+
+.replyVotes {
+  display: flex;
+  gap: 8px;
+  margin: 10px 0;
+}
+
+.voteBtn.small {
+  padding: 4px 10px;
+  font-size: 12px;
+}
+
+.acceptedBadge {
+  background: var(--success);
+  color: white;
+  padding: 4px 12px;
+  border-radius: 20px;
+  font-size: 12px;
+  font-weight: 600;
+}
+

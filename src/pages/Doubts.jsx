@@ -7,6 +7,7 @@ export default function Doubts() {
   const [items, setItems] = useState([]);
   const [search, setSearch] = useState('');
   const [filter, setFilter] = useState('all');
+  const [categoryFilter, setCategoryFilter] = useState('All');
   const [loading, setLoading] = useState(true);
 
   const { user } = useAuth();
@@ -18,7 +19,9 @@ export default function Doubts() {
     api
       .get('/doubts', {
         params: {
-          search
+          search,
+          category: categoryFilter === 'All' ? undefined : categoryFilter,
+          status: filter === 'all' ? undefined : filter
         }
       })
       .then((r) => setItems(r.data || []))
@@ -28,7 +31,18 @@ export default function Doubts() {
 
   useEffect(() => {
     load();
-  }, []);
+  }, [categoryFilter, filter]);
+
+  const categories = ['All', 'Subject', 'Coding', 'Placement', 'Project', 'General'];
+
+  const handleVote = async (doubtId, voteType) => {
+    try {
+      await api.post(`/doubts/${doubtId}/vote`, { voteType });
+      load();
+    } catch (error) {
+      console.error('Failed to vote:', error);
+    }
+  };
 
   const filteredItems =
     filter === 'all'
@@ -198,6 +212,16 @@ export default function Doubts() {
       {/* FILTERS */}
       <div className="doubtFilters">
 
+        <select
+          value={categoryFilter}
+          onChange={(e) => setCategoryFilter(e.target.value)}
+          className="categoryFilter"
+        >
+          {categories.map(cat => (
+            <option key={cat} value={cat}>{cat}</option>
+          ))}
+        </select>
+
         <button
           className={filter === 'all' ? 'active' : ''}
           onClick={() => setFilter('all')}
@@ -267,13 +291,19 @@ export default function Doubts() {
                 <div className="doubtCardTop">
 
                   <span className="tag">
-                    {d.subject || 'General'}
+                    {d.category || d.subject || 'General'}
                   </span>
+
+                  {d.isPrivate && (
+                    <span className="privateBadge">
+                      🔒 Private
+                    </span>
+                  )}
 
                   <span
                     className={`doubtStatus ${
                       d.status?.toLowerCase() === 'solved' ||
-                      d.status?.toLowerCase() === 'accepted'
+                      d.status?.toLowerCase() === 'resolved'
                         ? 'solved'
                         : ''
                     }`}
@@ -290,6 +320,27 @@ export default function Doubts() {
                     ? `${d.description.slice(0, 180)}...`
                     : d.description}
                 </p>
+
+                <div className="doubtVotes">
+                  <button 
+                    className={`voteBtn ${d.userVote === 'upvote' ? 'upvoted' : ''}`}
+                    onClick={(e) => {
+                      e.preventDefault();
+                      handleVote(d._id, 'upvote');
+                    }}
+                  >
+                    ▲ {d.upvotes || 0}
+                  </button>
+                  <button 
+                    className={`voteBtn ${d.userVote === 'downvote' ? 'downvoted' : ''}`}
+                    onClick={(e) => {
+                      e.preventDefault();
+                      handleVote(d._id, 'downvote');
+                    }}
+                  >
+                    ▼ {d.downvotes || 0}
+                  </button>
+                </div>
 
                 <div className="doubtCardBottom">
 
@@ -495,13 +546,25 @@ export function NewDoubt() {
     title: '',
     description: '',
     subject: '',
-    category: 'Academics',
-    tags: ''
+    category: 'General',
+    tags: '',
+    isPrivate: false,
+    targetUser: ''
   });
 
   const [posting, setPosting] = useState(false);
+  const [connections, setConnections] = useState([]);
+  const { user } = useAuth();
 
   const nav = useNavigate();
+
+  useEffect(() => {
+    if (d.isPrivate) {
+      api.get('/doubts/connections')
+        .then(res => setConnections(res.data || []))
+        .catch(err => console.error(err));
+    }
+  }, [d.isPrivate]);
 
   const submit = async (e) => {
 
@@ -671,12 +734,11 @@ export function NewDoubt() {
                   })
                 }
               >
-                <option>Academics</option>
-                <option>Programming</option>
-                <option>Projects</option>
-                <option>Placement</option>
-                <option>Career</option>
-                <option>General</option>
+                <option value="Subject">Subject</option>
+                <option value="Coding">Coding</option>
+                <option value="Placement">Placement</option>
+                <option value="Project">Project</option>
+                <option value="General">General</option>
               </select>
 
             </label>
@@ -703,6 +765,47 @@ export function NewDoubt() {
             </small>
 
           </label>
+
+
+          <label className="checkboxLabel">
+            <input
+              type="checkbox"
+              checked={d.isPrivate}
+              onChange={(e) =>
+                setD({
+                  ...d,
+                  isPrivate: e.target.checked,
+                  targetUser: e.target.checked ? '' : ''
+                })
+              }
+            />
+            <span>Make this doubt private (only visible to selected person)</span>
+          </label>
+
+
+          {d.isPrivate && (
+            <label>
+              Select Person
+
+              <select
+                required
+                value={d.targetUser}
+                onChange={(e) =>
+                  setD({
+                    ...d,
+                    targetUser: e.target.value
+                  })
+                }
+              >
+                <option value="">Select a person...</option>
+                {connections.map(conn => (
+                  <option key={conn._id} value={conn._id}>
+                    {conn.name} - {conn.department} ({conn.role})
+                  </option>
+                ))}
+              </select>
+            </label>
+          )}
 
 
           <div className="formActions">
@@ -795,6 +898,24 @@ export function DoubtDetails() {
 
       setPosting(false);
 
+    }
+  };
+
+  const handleReplyVote = async (replyId, voteType) => {
+    try {
+      await api.post(`/doubts/${id}/replies/${replyId}/vote`, { voteType });
+      load();
+    } catch (error) {
+      console.error('Failed to vote:', error);
+    }
+  };
+
+  const handleAcceptAnswer = async (replyId) => {
+    try {
+      await api.patch(`/doubts/${id}/accept`, { answerId: replyId });
+      load();
+    } catch (error) {
+      console.error('Failed to accept answer:', error);
     }
   };
 
@@ -944,12 +1065,27 @@ export function DoubtDetails() {
                           </span>
                         </div>
 
-                        {index === 0 && (
-                          <span className="helpfulBadge">
-                            ⭐ Helpful
+                        {a.isAccepted && (
+                          <span className="acceptedBadge">
+                            ✓ Accepted
                           </span>
                         )}
 
+                      </div>
+
+                      <div className="replyVotes">
+                        <button 
+                          className={`voteBtn small ${a.userVote === 'upvote' ? 'upvoted' : ''}`}
+                          onClick={() => handleReplyVote(a._id, 'upvote')}
+                        >
+                          ▲ {a.upvotes || 0}
+                        </button>
+                        <button 
+                          className={`voteBtn small ${a.userVote === 'downvote' ? 'downvoted' : ''}`}
+                          onClick={() => handleReplyVote(a._id, 'downvote')}
+                        >
+                          ▼ {a.downvotes || 0}
+                        </button>
                       </div>
 
                       <p>
@@ -960,24 +1096,11 @@ export function DoubtDetails() {
                       {user?.role === 'junior' &&
                         String(
                           doubt.askedBy?._id
-                        ) === String(user._id) && (
+                        ) === String(user._id) && !a.isAccepted && (
 
                           <button
                             className="outlineBtn"
-                            onClick={async () => {
-
-                              await api.patch(
-                                '/doubts/' +
-                                  id +
-                                  '/accept',
-                                {
-                                  answerId: a._id
-                                }
-                              );
-
-                              load();
-
-                            }}
+                            onClick={() => handleAcceptAnswer(a._id)}
                           >
                             ✓ Mark as Accepted
                           </button>

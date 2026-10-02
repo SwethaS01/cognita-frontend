@@ -11,13 +11,17 @@ export default function Resources() {
   const [typeFilter, setTypeFilter] = useState('All');
   const [departmentFilter, setDepartmentFilter] = useState('All');
   const [sortBy, setSortBy] = useState('Latest');
+  const [showBookmarked, setShowBookmarked] = useState(false);
 
   const canUpload = ['junior', 'senior', 'alumni', 'admin'].includes(user?.role);
 
   const load = async () => {
     try {
       const response = await api.get('/resources', {
-        params: { search }
+        params: { 
+          search,
+          bookmarked: showBookmarked ? 'true' : undefined
+        }
       });
 
       setItems(response.data || []);
@@ -28,7 +32,7 @@ export default function Resources() {
 
   useEffect(() => {
     load();
-  }, []);
+  }, [showBookmarked]);
 
   const resourceTypes = useMemo(() => {
     const types = items
@@ -131,6 +135,24 @@ export default function Resources() {
 
   const openUpload = () => {
     document.getElementById('upload')?.showModal();
+  };
+
+  const handleVote = async (resourceId, voteType) => {
+    try {
+      await api.post(`/resources/${resourceId}/vote`, { voteType });
+      load();
+    } catch (error) {
+      console.error('Failed to vote:', error);
+    }
+  };
+
+  const handleBookmark = async (resourceId) => {
+    try {
+      await api.post(`/resources/${resourceId}/bookmark`);
+      load();
+    } catch (error) {
+      console.error('Failed to bookmark:', error);
+    }
   };
 
   return (
@@ -321,9 +343,8 @@ export default function Resources() {
             </select>
           </div>
 
-          <div className="filterGroup">
+          <div className="resourceFilterGroup">
             <label>Sort By</label>
-
             <select
               value={sortBy}
               onChange={(e) =>
@@ -334,6 +355,16 @@ export default function Resources() {
               <option value="A-Z">A → Z</option>
               <option value="Z-A">Z → A</option>
             </select>
+          </div>
+
+          <div className="resourceFilterGroup">
+            <label>View</label>
+            <button
+              className={`filterToggle ${showBookmarked ? 'active' : ''}`}
+              onClick={() => setShowBookmarked(!showBookmarked)}
+            >
+              {showBookmarked ? '★ Bookmarked' : 'All Resources'}
+            </button>
           </div>
         </div>
       </section>
@@ -444,6 +475,30 @@ export default function Resources() {
                         {r.uploadedBy?.name || 'Community'}
                       </b>
                     </div>
+                  </div>
+
+                  <div className="resourceActions">
+                    <div className="resourceVotes">
+                      <button 
+                        className={`voteBtn ${r.userVote === 'upvote' ? 'upvoted' : ''}`}
+                        onClick={() => handleVote(r._id, 'upvote')}
+                      >
+                        ▲ {r.upvotes || 0}
+                      </button>
+                      <button 
+                        className={`voteBtn ${r.userVote === 'downvote' ? 'downvoted' : ''}`}
+                        onClick={() => handleVote(r._id, 'downvote')}
+                      >
+                        ▼ {r.downvotes || 0}
+                      </button>
+                    </div>
+                    <button 
+                      className={`bookmarkBtn ${r.isBookmarked ? 'bookmarked' : ''}`}
+                      onClick={() => handleBookmark(r._id)}
+                      title={r.isBookmarked ? 'Remove bookmark' : 'Bookmark'}
+                    >
+                      {r.isBookmarked ? '★' : '☆'}
+                    </button>
                   </div>
 
                   {r.fileId ? (
